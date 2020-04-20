@@ -9,13 +9,6 @@ Here we could use a variable sampler:
 """
 
 def main():
-    # prepare data
-    imgIn = cv2.imread('photographer.png', cv2.IMREAD_GRAYSCALE)
-
-    rotation_angle = np.pi/4
-    cos_theta = np.cos(rotation_angle)
-    sin_theta = np.sin(rotation_angle)
-
     # setup OpenCL
     platforms = cl.get_platforms()  # a platform corresponds to a driver (e.g. AMD, NVidia, Intel)
     platform = platforms[0]  # take first platform
@@ -23,6 +16,18 @@ def main():
     device = devices[0]  # take first GPU
     context = cl.Context([device])  # put selected GPU into context object
     queue = cl.CommandQueue(context, device)  # create command queue for selected GPU and context
+
+    # prepare data
+    imgIn = cv2.imread('photographer.png', cv2.IMREAD_GRAYSCALE)
+
+    rotation_angle = np.pi/4
+    cos_theta = np.cos(rotation_angle)
+    sin_theta = np.sin(rotation_angle)
+
+    info = cl.sampler_info
+
+    # sampler = cl.Sampler(context, False, cl.addressing_mode.REPEAT, cl.filter_mode.LINEAR)
+    # __constant sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_FILTER_LINEAR | CLK_ADDRESS_CLAMP_TO_EDGE;
 
     # get shape of input image, allocate memory for output to which result can be copied to
     shape = imgIn.T.shape
