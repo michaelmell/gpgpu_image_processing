@@ -57,12 +57,12 @@ def main():
     "test implementation: read file 'in.png', apply dilation and erosion, write output images"
 
     # read image
-    img = cv2.imread('in.png', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread('photographer.png', cv2.IMREAD_GRAYSCALE)
 
     # rotate
     theta = np.pi/4
     dilate = rotate_image(img, theta)
-    cv2.imwrite('rotated.png', dilate)
+    cv2.imwrite('photographer_rotated.png', dilate)
 
 if __name__ == '__main__':
     main()
