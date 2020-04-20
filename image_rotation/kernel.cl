@@ -9,7 +9,7 @@ __kernel void img_rotate(
     __read_only image2d_t src_data,
     __write_only image2d_t dest_data,
     double sinTheta,
-    double cosTheta) //Rotation Parameters
+    double cosTheta)
     {
     //Work-item gets its index within index space
     const int ix = get_global_id(0);

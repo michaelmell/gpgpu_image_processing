@@ -64,7 +64,7 @@ def main():
     # rotate
     # theta = np.pi/4
     tmp = [[1, 0, -1], [2, 0, -2], [1, 0, -1]]
-    kernel_image = np.array(tmp, dtype=np.float32)
+    kernel_image = np.array(tmp, dtype=np.float32)  # dtype=np.float32, because defaults to dtype=np.float64, which is unsupported by OpenCL images
     dilate = convolve_image(img, kernel_image)
     cv2.imwrite('photographer_convolved.png', dilate)
 
