@@ -2,3 +2,4 @@
 /erode_dilate/letter_image_eroded.png
 /image_convolve_custom_kernel/photographer_convolved.png
 /image_rotation/photographer_rotated.png
+/image_convolve_sobel_filter/photographer_convolved.png
