@@ -12,10 +12,6 @@ def main():
     # read image
     imgIn = cv2.imread('photographer.png', cv2.IMREAD_GRAYSCALE)
 
-    tmp = [[1, 0, -1], [2, 0, -2], [1, 0, -1]]
-    kernelImage = np.array(tmp, dtype=np.float32)  # dtype=np.float32, because defaults to dtype=np.float64, which is unsupported by OpenCL images
-
-
     # (1) setup OpenCL
     platforms = cl.get_platforms()  # a platform corresponds to a driver (e.g. AMD)
     platform = platforms[0]  # take first platform
@@ -30,20 +26,18 @@ def main():
 
     # (2) create image buffers which hold images for OpenCL
     imgInBuf = cl.image_from_array(context, ary=imgIn, mode="r", norm_int=True, num_channels=1)
-    kernelImageBuf = cl.image_from_array(context, ary=kernelImage, mode="r", norm_int=False, num_channels=1)
     imgOutBuf = cl.image_from_array(context, ary=imgOut, mode="w", norm_int=True, num_channels=1)
 
     # (3) load and compile OpenCL program
     program = cl.Program(context, open('sobel_convolution_kernel_code.cl').read()).build()
 
     # (3) from OpenCL program, get kernel object and set arguments (input image, operation type, output image)
-    program.custom_convolution_2d(queue, shape, None, imgInBuf, kernelImageBuf, imgOutBuf)
+    program.custom_convolution_2d(queue, shape, None, imgInBuf, imgOutBuf)
 
     cl.enqueue_copy(queue, imgOut, imgOutBuf, origin=(0, 0), region=shape,
                     is_blocking=True)  # wait until finished copying resulting image back from GPU to CPU
 
-    # return imgOut
-
+    # save imgOut
     cv2.imwrite('photographer_convolved.png', imgOut)
 
     # show images
