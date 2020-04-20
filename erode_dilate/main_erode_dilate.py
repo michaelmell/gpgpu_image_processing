@@ -60,11 +60,11 @@ def main():
 
     # dilate
     dilate = applyMorphOp(img, MorphOp.DILATE)
-    cv2.imwrite('dilate.png', dilate)
+    cv2.imwrite('letter_image_dilated.png', dilate)
 
     # erode
     erode = applyMorphOp(img, MorphOp.ERODE)
-    cv2.imwrite('erode.png', erode)
+    cv2.imwrite('letter_image_eroded.png', erode)
 
 
 if __name__ == '__main__':
