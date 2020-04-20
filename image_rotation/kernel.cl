@@ -1,7 +1,7 @@
 // * coordinates are pixel-coordinates
 // * no interpolation between pixels
 // * pixel values from outside of image are taken from edge instead
-__constant sampler_t sampler = CLK_NORMALIZED_COORDS_TRUE | CLK_FILTER_LINEAR | CLK_ADDRESS_REPEAT;
+//__constant sampler_t sampler = CLK_NORMALIZED_COORDS_TRUE | CLK_FILTER_LINEAR | CLK_ADDRESS_REPEAT;
 
 /**
  * Rotate image using normalized coordinates for the sampler.
@@ -9,6 +9,7 @@ __constant sampler_t sampler = CLK_NORMALIZED_COORDS_TRUE | CLK_FILTER_LINEAR | 
  * boundaries (i.e. for using CLK_ADDRESS_REPEAT).
  */
 __kernel void img_rotate(
+    sampler_t sampler,
     __read_only image2d_t src_data,
     __write_only image2d_t dest_data,
     double sinTheta,

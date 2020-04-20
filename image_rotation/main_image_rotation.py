@@ -3,11 +3,6 @@ import numpy as np
 import pyopencl as cl
 import matplotlib.pyplot as plt
 
-"""
-Here we could use a variable sampler:
-    self.sampler = cl.Sampler(self.ctx,True,cl.addressing_mode.REPEAT,cl.filter_mode.LINEAR)
-"""
-
 def main():
     # setup OpenCL
     platforms = cl.get_platforms()  # a platform corresponds to a driver (e.g. AMD, NVidia, Intel)
@@ -24,10 +19,7 @@ def main():
     cos_theta = np.cos(rotation_angle)
     sin_theta = np.sin(rotation_angle)
 
-    info = cl.sampler_info
-
-    # sampler = cl.Sampler(context, False, cl.addressing_mode.REPEAT, cl.filter_mode.LINEAR)
-    # __constant sampler_t sampler = CLK_NORMALIZED_COORDS_FALSE | CLK_FILTER_LINEAR | CLK_ADDRESS_CLAMP_TO_EDGE;
+    sampler = cl.Sampler(context, True, cl.addressing_mode.REPEAT, cl.filter_mode.NEAREST)
 
     # get shape of input image, allocate memory for output to which result can be copied to
     shape = imgIn.T.shape
@@ -39,7 +31,7 @@ def main():
 
     # load, compile and execute OpenCL program
     program = cl.Program(context, open('kernel.cl').read()).build()
-    program.img_rotate(queue, shape, None, imgInBuf, imgOutBuf, np.double(sin_theta), np.double(cos_theta))
+    program.img_rotate(queue, shape, None, sampler, imgInBuf, imgOutBuf, np.double(sin_theta), np.double(cos_theta))
     cl.enqueue_copy(queue, imgOut, imgOutBuf, origin=(0, 0), region=shape,
                     is_blocking=True)  # wait until finished copying resulting image back from GPU to CPU
 
