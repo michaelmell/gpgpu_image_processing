@@ -53,10 +53,10 @@ def applyMorphOp(imgIn, op):
 
 
 def main():
-    "test implementation: read file 'in.png', apply dilation and erosion, write output images"
+    "test implementation: read file 'letter_image.png', apply dilation and erosion, write output images"
 
     # read image
-    img = cv2.imread('in.png', cv2.IMREAD_GRAYSCALE)
+    img = cv2.imread('letter_image.png', cv2.IMREAD_GRAYSCALE)
 
     # dilate
     dilate = applyMorphOp(img, MorphOp.DILATE)

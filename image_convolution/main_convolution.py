@@ -58,8 +58,6 @@ def convolve_image(imgIn, kernelImage):
 
 
 def main():
-    "test implementation: read file 'in.png', apply dilation and erosion, write output images"
-
     # read image
     img = cv2.imread('photographer.png', cv2.IMREAD_GRAYSCALE)
 
