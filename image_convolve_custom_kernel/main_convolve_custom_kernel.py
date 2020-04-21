@@ -16,6 +16,14 @@ def main():
     imgIn = cv2.imread('photographer.png', cv2.IMREAD_GRAYSCALE)
     tmp = [[1, 0, -1], [2, 0, -2], [1, 0, -1]]
     kernelImage = np.array(tmp, dtype=np.float32)  # dtype=np.float32, because defaults to dtype=np.float64, which is unsupported by OpenCL images
+    # tmp = [[1, 2, 1], [2, 4, -2], [1, 2, 1]]
+    # kernelImage = 1/16 * np.array(tmp, dtype=np.float32)  # dtype=np.float32, because defaults to dtype=np.float64, which is unsupported by OpenCL images
+    # tmp = [[1, 4, 7, 4, 1],
+    #        [4,16,26,16, 4],
+    #        [7,26,41,26, 7],
+    #        [4,16,26,16, 4],
+    #        [1, 4, 7, 4, 1]]
+    # kernelImage = 1/273 * np.array(tmp, dtype=np.float32)  # dtype=np.float32, because defaults to dtype=np.float64, which is unsupported by OpenCL images
 
 
     # get shape of input image, allocate memory for output to which result can be copied to
