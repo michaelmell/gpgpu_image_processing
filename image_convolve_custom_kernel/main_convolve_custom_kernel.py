@@ -37,8 +37,7 @@ def main():
     cl.enqueue_copy(queue, imgOut, imgOutBuf, origin=(0, 0), region=shape,
                     is_blocking=True)  # wait until finished copying resulting image back from GPU to CPU
 
-    # return imgOut
-
+    # save imgOut
     cv2.imwrite('photographer_convolved.png', imgOut)
 
     # show images
