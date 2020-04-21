@@ -29,7 +29,7 @@ def main():
                          shape=shape)  # placeholder for gray-valued image of given shape
 
     # load and compile OpenCL program
-    program = cl.Program(context, open('kernel.cl').read()).build()
+    program = cl.Program(context, open('erosion_kernel.cl').read()).build()
 
     # from OpenCL program, get kernel object and set arguments (input image, operation type, output image)
     kernel = cl.Kernel(program, 'morphOpKernel')  # name of function according to kernel.py
