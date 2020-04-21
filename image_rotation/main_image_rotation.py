@@ -3,6 +3,14 @@ import numpy as np
 import pyopencl as cl
 import matplotlib.pyplot as plt
 
+'''
+This is an example of how to define a sampler from PyOpenCL and pass
+it to the kernel. We resample the image so that it is rotated.
+* We can change sampler properties for out-of-bounds behavior
+and interpolation.
+* Coordinates must be normalized for the cl.addressing_mode.REPEAT to work.
+'''
+
 def main():
     # setup OpenCL
     platforms = cl.get_platforms()  # a platform corresponds to a driver (e.g. AMD, NVidia, Intel)
@@ -19,6 +27,7 @@ def main():
     cos_theta = np.cos(rotation_angle)
     sin_theta = np.sin(rotation_angle)
 
+    # setup sampler
     sampler = cl.Sampler(context, True, cl.addressing_mode.REPEAT, cl.filter_mode.NEAREST)
 
     # get shape of input image, allocate memory for output to which result can be copied to

@@ -3,11 +3,6 @@ import numpy as np
 import pyopencl as cl
 import matplotlib.pyplot as plt
 
-"""
-Here we could use a variable sampler:
-    self.sampler = cl.Sampler(self.ctx,True,cl.addressing_mode.REPEAT,cl.filter_mode.LINEAR)
-"""
-
 def main():
     # read image
     imgIn = cv2.imread('photographer.png', cv2.IMREAD_GRAYSCALE)
